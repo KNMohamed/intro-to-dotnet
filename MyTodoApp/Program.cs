@@ -1,6 +1,12 @@
+using Microsoft.AspNetCore.HttpLogging;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpLogging(loggingOptions =>
+loggingOptions.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders);
+
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.UseHttpLogging();
 
 app.Run();
